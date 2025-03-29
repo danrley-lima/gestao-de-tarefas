@@ -1,0 +1,35 @@
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+  jackson:
+    time-zone: America/Recife
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/gestao-tarefas
+    username: postgres
+    password: postgres
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      idle-timeout: 10000
+      connection-timeout: 30000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 3000
+
+logging:
+  level:
+    "[org.hibernate.sql]": debug
+    "[com.danrley]": debug
+    org: 
+      springframework:
+        security: DEBUG

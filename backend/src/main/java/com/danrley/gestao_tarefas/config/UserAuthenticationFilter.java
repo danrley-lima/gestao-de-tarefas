@@ -1,0 +1,68 @@
+package com.danrley.gestao_tarefas.config;
+
+import java.io.IOException;
+
+import org.springframework.lang.NonNull;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.danrley.gestao_tarefas.domain.user.User;
+import com.danrley.gestao_tarefas.domain.user.UserDetailsImpl;
+import com.danrley.gestao_tarefas.repository.UserRepository;
+import com.danrley.gestao_tarefas.service.JwtTokenService;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+
+@Component
+@RequiredArgsConstructor
+public class UserAuthenticationFilter extends OncePerRequestFilter {
+
+  private final JwtTokenService jwtTokenService;
+  private final UserRepository userRepository;
+
+  @Override
+  protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
+      @NonNull FilterChain filterChain)
+      throws ServletException, IOException {
+
+    if (isPublicRoute(request)) {
+      filterChain.doFilter(request, response);
+      return;
+    }
+    String token = recoveryToken(request);
+    if (token != null) {
+      String subject = jwtTokenService.getSubjectFromToken(token);
+      User user = userRepository.findByEmail(subject).get();
+      UserDetailsImpl userDetails = new UserDetailsImpl(user);
+
+      UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+          userDetails.getUsername(), null,
+          userDetails.getAuthorities());
+
+      // Define o usuário autenticado no contexto de segurança
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+    } else {
+      throw new RuntimeException("O token está ausente.");
+    }
+    filterChain.doFilter(request, response);
+  }
+
+  private String recoveryToken(HttpServletRequest request) {
+    String authorizationHeader = request.getHeader("Authorization");
+    if (authorizationHeader != null) {
+      return authorizationHeader.replace("Bearer ", "");
+    }
+    return null;
+  }
+
+  private boolean isPublicRoute(HttpServletRequest request) {
+    String path = request.getServletPath();
+    return path.startsWith("/api/auth/");
+  }
+}

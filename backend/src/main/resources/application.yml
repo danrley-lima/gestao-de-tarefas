@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: gestao-tarefas
+  profiles:
+    active:
+      - dev
+
+api:
+  security:
+    token:
+      secret: segredao-123
+      expiration: 86400000
