@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.danrley.gestao_tarefas.domain.user.User;
-import com.danrley.gestao_tarefas.domain.user.UserDetailsImpl;
+import com.danrley.gestao_tarefas.model.user.User;
 import com.danrley.gestao_tarefas.repository.UserRepository;
+import com.danrley.gestao_tarefas.security.auth.UserDetailsImpl;
 
 @Service
 public class AuthorizationService implements UserDetailsService {
@@ -19,7 +19,7 @@ public class AuthorizationService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userRepository.findByEmail(username)
-        .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
+        .orElseThrow(() -> new UsernameNotFoundException("User not found."));
     return new UserDetailsImpl(user);
 
   }

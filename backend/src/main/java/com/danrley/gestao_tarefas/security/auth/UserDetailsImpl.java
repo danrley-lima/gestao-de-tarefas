@@ -1,4 +1,4 @@
-package com.danrley.gestao_tarefas.domain.user;
+package com.danrley.gestao_tarefas.security.auth;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -7,12 +7,18 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.danrley.gestao_tarefas.model.user.User;
+
 public class UserDetailsImpl implements UserDetails {
 
   private User user;
 
   public UserDetailsImpl(User user) {
     this.user = user;
+  }
+
+  public Long getUserId() {
+    return user.getId();
   }
 
   public String getEmail() {

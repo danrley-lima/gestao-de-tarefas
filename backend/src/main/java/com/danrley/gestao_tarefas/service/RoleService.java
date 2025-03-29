@@ -2,8 +2,8 @@ package com.danrley.gestao_tarefas.service;
 
 import org.springframework.stereotype.Service;
 
-import com.danrley.gestao_tarefas.domain.user.UserRole;
-import com.danrley.gestao_tarefas.model.Role;
+import com.danrley.gestao_tarefas.model.role.Role;
+import com.danrley.gestao_tarefas.model.user.UserRole;
 import com.danrley.gestao_tarefas.repository.RoleRepository;
 
 import jakarta.annotation.PostConstruct;
@@ -26,6 +26,6 @@ public class RoleService {
 
   public Role getRoleByName(UserRole userRole) {
     return roleRepository.findByName(userRole)
-        .orElseThrow(() -> new RuntimeException("Role não encontrada: " + userRole));
+        .orElseThrow(() -> new RuntimeException("Role not found: " + userRole));
   }
 }

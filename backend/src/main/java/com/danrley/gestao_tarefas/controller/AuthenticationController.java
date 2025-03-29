@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.danrley.gestao_tarefas.dto.LoginRequestDto;
-import com.danrley.gestao_tarefas.dto.RecoveryJwtTokenDto;
-import com.danrley.gestao_tarefas.dto.RegisterRequestDto;
-import com.danrley.gestao_tarefas.dto.UserResponseDto;
+import com.danrley.gestao_tarefas.dto.auth.LoginRequestDto;
+import com.danrley.gestao_tarefas.dto.auth.RecoveryJwtTokenDto;
+import com.danrley.gestao_tarefas.dto.auth.RegisterRequestDto;
+import com.danrley.gestao_tarefas.dto.user.UserResponseDto;
 import com.danrley.gestao_tarefas.service.UserService;
 
 import jakarta.validation.Valid;
@@ -31,7 +31,7 @@ public class AuthenticationController {
 
   @PostMapping("/register")
   public ResponseEntity<UserResponseDto> register(@RequestBody @Valid RegisterRequestDto request) {
-    return ResponseEntity.ok(userService.register(request));
+    return ResponseEntity.status(201).body(userService.createUser(request));
   }
 
 }

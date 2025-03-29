@@ -1,4 +1,4 @@
-package com.danrley.gestao_tarefas.config;
+package com.danrley.gestao_tarefas.security.filter;
 
 import java.io.IOException;
 
@@ -8,9 +8,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.danrley.gestao_tarefas.domain.user.User;
-import com.danrley.gestao_tarefas.domain.user.UserDetailsImpl;
+import com.danrley.gestao_tarefas.model.user.User;
 import com.danrley.gestao_tarefas.repository.UserRepository;
+import com.danrley.gestao_tarefas.security.auth.UserDetailsImpl;
 import com.danrley.gestao_tarefas.service.JwtTokenService;
 
 import jakarta.servlet.FilterChain;
@@ -48,7 +48,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
       // Define o usuário autenticado no contexto de segurança
       SecurityContextHolder.getContext().setAuthentication(authentication);
     } else {
-      throw new RuntimeException("O token está ausente.");
+      throw new RuntimeException("The token is missing.");
     }
     filterChain.doFilter(request, response);
   }
@@ -63,6 +63,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 
   private boolean isPublicRoute(HttpServletRequest request) {
     String path = request.getServletPath();
-    return path.startsWith("/api/auth/");
+    return path.startsWith("/api/auth/")
+        || path.startsWith("/swagger-ui/");
   }
 }

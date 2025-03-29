@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.danrley.gestao_tarefas.security.filter.UserAuthenticationFilter;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -35,6 +37,7 @@ public class SecurityConfiguration {
         .formLogin(login -> login.disable())
         .httpBasic(basic -> basic.disable())
         .authorizeHttpRequests(requests -> requests
+            // .requestMatchers("/error").permitAll() 
             .requestMatchers("/api/auth/**").permitAll() 
             .anyRequest().authenticated())
         .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); 

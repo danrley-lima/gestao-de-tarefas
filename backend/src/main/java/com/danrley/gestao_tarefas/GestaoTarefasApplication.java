@@ -3,7 +3,6 @@ package com.danrley.gestao_tarefas;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// @SpringBootApplication(scanBasePackages = "com.danrley.gestao_tarefas")
 @SpringBootApplication
 public class GestaoTarefasApplication {
 

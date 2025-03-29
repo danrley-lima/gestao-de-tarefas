@@ -8,15 +8,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.danrley.gestao_tarefas.domain.user.User;
-import com.danrley.gestao_tarefas.domain.user.UserDetailsImpl;
-import com.danrley.gestao_tarefas.domain.user.UserRole;
-import com.danrley.gestao_tarefas.dto.LoginRequestDto;
-import com.danrley.gestao_tarefas.dto.RecoveryJwtTokenDto;
-import com.danrley.gestao_tarefas.dto.RegisterRequestDto;
-import com.danrley.gestao_tarefas.dto.UserResponseDto;
-import com.danrley.gestao_tarefas.model.Role;
+import com.danrley.gestao_tarefas.dto.auth.LoginRequestDto;
+import com.danrley.gestao_tarefas.dto.auth.RecoveryJwtTokenDto;
+import com.danrley.gestao_tarefas.dto.auth.RegisterRequestDto;
+import com.danrley.gestao_tarefas.dto.user.UserResponseDto;
+import com.danrley.gestao_tarefas.model.role.Role;
+import com.danrley.gestao_tarefas.model.user.User;
+import com.danrley.gestao_tarefas.model.user.UserRole;
 import com.danrley.gestao_tarefas.repository.UserRepository;
+import com.danrley.gestao_tarefas.security.auth.UserDetailsImpl;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -24,48 +24,48 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-  private final UserRepository usuarioRepository;
+  private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private final RoleService roleService;
   private final AuthenticationManager authenticationManager;
   private final JwtTokenService jwtTokenService;
 
   @Transactional
-  public UserResponseDto register(RegisterRequestDto request) {
+  public UserResponseDto createUser(RegisterRequestDto registerRequestDto) {
 
-    if (usuarioRepository.findByEmail(request.email()).isPresent()) {
-      throw new IllegalArgumentException("Email já está em uso.");
+    if (userRepository.findByEmail(registerRequestDto.email()).isPresent()) {
+      throw new IllegalArgumentException("Email is already in use.");
     }
 
     User newUser = User.builder()
-        .email(request.email())
-        .password(passwordEncoder.encode(request.password()))
-        .name(request.name())
+        .email(registerRequestDto.email())
+        .password(passwordEncoder.encode(registerRequestDto.password()))
+        .name(registerRequestDto.name())
         .build();
 
     Role defaultRole = roleService.getRoleByName(UserRole.USER);
     newUser.addRole(defaultRole);
 
-    if (request.isAdmin()) {
+    if (registerRequestDto.isAdmin()) {
       Role adminRole = roleService.getRoleByName(UserRole.ADMIN);
       newUser.addRole(adminRole);
     }
 
-    usuarioRepository.save(newUser);
+    userRepository.save(newUser);
 
-    return new UserResponseDto(newUser.getId(), newUser.getName(), newUser.getEmail());
+    return toResponse(newUser);
   }
 
   public List<UserResponseDto> getAllUsers() {
-    return usuarioRepository.findAll().stream()
-        .map(user -> new UserResponseDto(user.getId(), user.getName(), user.getEmail()))
+    return userRepository.findAll().stream()
+        .map(this::toResponse)
         .toList();
   }
 
   public UserResponseDto getUserById(Long id) {
-    User user = usuarioRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com o ID: " + id));
-    return new UserResponseDto(user.getId(), user.getName(), user.getEmail());
+    User user = userRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + id));
+    return toResponse(user);
   }
 
   public RecoveryJwtTokenDto authenticateUser(LoginRequestDto request) {
@@ -76,5 +76,12 @@ public class UserService {
     UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
     return new RecoveryJwtTokenDto(jwtTokenService.generateToken(userDetails));
+  }
+
+  private UserResponseDto toResponse(User user) {
+    return new UserResponseDto(
+        user.getId(),
+        user.getName(),
+        user.getEmail());
   }
 }

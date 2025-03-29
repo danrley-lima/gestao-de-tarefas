@@ -1,4 +1,4 @@
-package com.danrley.gestao_tarefas.dto;
+package com.danrley.gestao_tarefas.dto.auth;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -1,6 +1,6 @@
-package com.danrley.gestao_tarefas.model;
+package com.danrley.gestao_tarefas.model.role;
 
-import com.danrley.gestao_tarefas.domain.user.UserRole;
+import com.danrley.gestao_tarefas.model.user.UserRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
