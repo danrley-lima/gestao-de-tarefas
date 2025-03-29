@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ErrorResponseDto> handleTaskNotFoundException(TaskNotFoundException ex) {
     ErrorResponseDto error = new ErrorResponseDto(
         HttpStatus.NOT_FOUND.value(),
-        "Recurso não encontrado",
+        "Resource not found",
         ex.getMessage());
     return new ResponseEntity<ErrorResponseDto>(error, HttpStatus.NOT_FOUND);
   }
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     return ResponseEntity.badRequest().body(
         new ErrorResponseDto(
             HttpStatus.BAD_REQUEST.value(),
-            "Erro de validação nos dados enviados",
+            "Validation error in the submitted data",
             errors));
   }
 
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ErrorResponseDto> handleBusinessErrors(IllegalArgumentException ex) {
     ErrorResponseDto error = new ErrorResponseDto(
         HttpStatus.BAD_REQUEST.value(),
-        "Regra de negócio violada",
+        "Business rule violated",
         ex.getMessage());
     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
   }
@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
 
     ErrorResponseDto error = new ErrorResponseDto(
         HttpStatus.INTERNAL_SERVER_ERROR.value(),
-        "Erro interno no servidor",
+        "Internal server error",
         details);
     return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
   }
@@ -76,8 +76,8 @@ public class GlobalExceptionHandler {
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
         .body(new ErrorResponseDto(
             500,
-            "Erro interno no servidor",
-            "Não foi possível gerar o token de autenticação"));
+            "Internal server error",
+            "Failed to generate the authentication token"));
   }
 
   @ExceptionHandler(InvalidTokenException.class)
@@ -86,7 +86,7 @@ public class GlobalExceptionHandler {
         .status(HttpStatus.UNAUTHORIZED)
         .body(new ErrorResponseDto(
             401,
-            "Não autorizado",
+            "Unauthorized",
             ex.getMessage()));
   }
 }
