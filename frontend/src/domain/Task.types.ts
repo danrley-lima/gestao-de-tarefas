@@ -1,4 +1,7 @@
-type Task = {
+import { TaskPriority } from "./TaskPriority.enum";
+import { TaskStatus } from "./TaskStatus.enum";
+
+export type Task = {
   number: number;
   title: string;
   description: string;
