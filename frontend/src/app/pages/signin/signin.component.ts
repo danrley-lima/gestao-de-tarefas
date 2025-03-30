@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthServiceService } from 'app/services/auth-service.service';
@@ -6,7 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-root',
-  imports: [ReactiveFormsModule, FloatLabelModule, InputTextModule],
+  imports: [ReactiveFormsModule, FloatLabelModule, InputTextModule, NgOptimizedImage],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss'
 })

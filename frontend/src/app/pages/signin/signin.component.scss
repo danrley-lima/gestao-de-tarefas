@@ -2,10 +2,8 @@
 
   section {
     display: flex;
-    flex-direction: column;
-    height: 100%;
     width: 100%;
-    align-items: center;
+    justify-content: center;
     padding: 4rem 0;
 
  .signin-container {
@@ -16,5 +14,21 @@
     padding: 3.5rem 2.5rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
+
+  .img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 2rem;
+
+  }
 }
 
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

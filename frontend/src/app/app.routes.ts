@@ -7,6 +7,5 @@ export const routes: Routes = [
   { path: '', component: SigninComponent },
   { path: 'tasks', component: ManagerTaskPageComponent },
   { path: 'tasks/create', component: CreateTaskPageComponent },
-
   { path: '**', redirectTo: '' },
 ];
