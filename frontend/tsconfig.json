@@ -18,6 +18,10 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "baseUrl": "./src",
+"paths": {
+  "@domain/*": ["app/domain/*"]
+},
     "lib": [
       "ES2022",
       "dom"

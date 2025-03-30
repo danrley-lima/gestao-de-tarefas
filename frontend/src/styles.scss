@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import "primeicons/primeicons.css";
 
 *,
 *::before,
@@ -7,19 +8,24 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 :root {
   --font-family: "Nunito", sans-serif;
   --font-size: 16px;
   --line-height: 1.5;
   --color-text: #333;
+  --color-text-placeholder:#495057;
   --color-background: #fff;
+  --color-primary: #CC0B15;
+  --color-secondary: #F4303A;
+  --color-primary-light: #FCF7F5;
+  --color-primary-light2: #F3D9D9;
 
   font-family: var(--font-family);
   font-size: var(--font-size);
   line-height: var(--line-height);
   color: var(--color-text);
   background-color: var(--color-background);
+
 }
 
 body, div, main, section, article, aside, nav, header, footer, address, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote {
