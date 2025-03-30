@@ -8,16 +8,16 @@ public record ErrorResponseDto(
     String message,
     List<String> errors,
     LocalDateTime timestamp) {
+
   public ErrorResponseDto(int status, String message, String error) {
-    this(status, message, List.of(error), LocalDateTime.now());
+    this(status, message, error != null ? List.of(error) : List.of(), LocalDateTime.now());
   }
 
-  // Para casos simples onde não há lista de erros
   public ErrorResponseDto(int status, String message) {
-    this(status, message, null, LocalDateTime.now());
+    this(status, message, List.of(), LocalDateTime.now());
   }
 
   public ErrorResponseDto(int status, String message, List<String> errors) {
-    this(status, message, errors, LocalDateTime.now());
+    this(status, message, errors != null ? errors : List.of(), LocalDateTime.now());
   }
 }

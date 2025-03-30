@@ -18,7 +18,7 @@ import com.danrley.gestao_tarefas.exception.custom.InvalidCredentialsException;
 import com.danrley.gestao_tarefas.exception.custom.UserNotFoundException;
 import com.danrley.gestao_tarefas.model.role.Role;
 import com.danrley.gestao_tarefas.model.user.User;
-import com.danrley.gestao_tarefas.model.user.UserRole;
+import com.danrley.gestao_tarefas.model.user.UserRoleEnum;
 import com.danrley.gestao_tarefas.repository.UserRepository;
 import com.danrley.gestao_tarefas.security.auth.UserDetailsImpl;
 
@@ -48,11 +48,11 @@ public class UserService {
         .name(registerRequestDto.name())
         .build();
 
-    Role defaultRole = roleService.getRoleByName(UserRole.USER);
+    Role defaultRole = roleService.getRoleByName(UserRoleEnum.USER);
     newUser.addRole(defaultRole);
 
     if (registerRequestDto.isAdmin()) {
-      Role adminRole = roleService.getRoleByName(UserRole.ADMIN);
+      Role adminRole = roleService.getRoleByName(UserRoleEnum.ADMIN);
       newUser.addRole(adminRole);
     }
 

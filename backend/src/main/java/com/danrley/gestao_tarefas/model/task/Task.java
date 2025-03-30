@@ -50,14 +50,14 @@ public class Task {
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private TaskPriority priority;
+  private TaskPriorityEnum priority;
 
   @Column(nullable = false)
   private LocalDate deadline;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private TaskStatus status;
+  private TaskStatusEnum status;
 
   @CreationTimestamp
   @Column(updatable = false)

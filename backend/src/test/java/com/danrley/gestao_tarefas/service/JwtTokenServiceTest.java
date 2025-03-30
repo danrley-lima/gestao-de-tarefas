@@ -40,10 +40,10 @@ public class JwtTokenServiceTest {
   public void testGenerateTokenAndExtractSubject() {
     UserDetailsImpl user = createDummyUser();
     String token = jwtTokenService.generateToken(user);
-    assertNotNull(token, "O token gerado não deve ser nulo");
+    assertNotNull(token);
 
     String subject = jwtTokenService.getSubjectFromToken(token);
-    assertEquals(user.getEmail(), subject, "O subject extraído deve ser igual ao email do usuário");
+    assertEquals(user.getEmail(), subject);
   }
 
   @Test

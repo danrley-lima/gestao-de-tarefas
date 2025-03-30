@@ -37,10 +37,14 @@ public class SecurityConfiguration {
         .formLogin(login -> login.disable())
         .httpBasic(basic -> basic.disable())
         .authorizeHttpRequests(requests -> requests
-            // .requestMatchers("/error").permitAll() 
-            .requestMatchers("/api/auth/**").permitAll() 
+            // .anyRequest().permitAll());
+            .requestMatchers(
+                "/api/auth/**",
+                "/swagger-ui/**",
+                "/v3/api-docs/**")
+            .permitAll()
             .anyRequest().authenticated())
-        .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); 
+        .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     return httpSecurity.build();
   }
 

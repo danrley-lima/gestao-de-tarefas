@@ -9,8 +9,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.danrley.gestao_tarefas.dto.ErrorResponseDto;
 import com.danrley.gestao_tarefas.exception.custom.EmailAlreadyExistsException;
@@ -20,7 +21,7 @@ import com.danrley.gestao_tarefas.exception.custom.TaskNotFoundException;
 import com.danrley.gestao_tarefas.exception.custom.TokenGenerationException;
 import com.danrley.gestao_tarefas.exception.custom.UserNotFoundException;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
   @Autowired
@@ -61,10 +62,9 @@ public class GlobalExceptionHandler {
   // Exceção genérica para capturar todas as outras exceções não tratadas
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResponseDto> handleAllExceptions(Exception ex) {
-    String details = null;
-    if (Arrays.asList(environment.getActiveProfiles()).contains("dev")) {
-      details = ex.getMessage() + "\n" + ExceptionUtils.getStackTrace(ex);
-    }
+    boolean isDev = Arrays.asList(environment.getActiveProfiles()).contains("dev");
+
+    String details = isDev ? ex.getMessage() + "\n" + ExceptionUtils.getStackTrace(ex) : null;
 
     ErrorResponseDto error = new ErrorResponseDto(
         HttpStatus.INTERNAL_SERVER_ERROR.value(),
@@ -121,5 +121,27 @@ public class GlobalExceptionHandler {
             401,
             "Unauthorized",
             "Invalid email or password"));
+  }
+
+  @SuppressWarnings("null")
+  @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+  public ResponseEntity<ErrorResponseDto> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+    boolean isDev = Arrays.asList(environment.getActiveProfiles()).contains("dev");
+
+    String details = null;
+    // Mensagem detalhada de erros para facilitar a depuração
+    if (isDev) {
+      details = String.format(
+          "Parameter '%s' with value '%s' is invalid. Expected type: %s",
+          ex.getName(),
+          ex.getValue(),
+          ex.getRequiredType() != null ? ex.getRequiredType().getSimpleName() : "unknown");
+    }
+
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+        new ErrorResponseDto(
+            HttpStatus.BAD_REQUEST.value(),
+            "Invalid parameter",
+            details != null ? details : "Check the request parameters."));
   }
 }

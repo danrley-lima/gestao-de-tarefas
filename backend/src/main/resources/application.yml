@@ -1,6 +1,10 @@
 spring:
   application:
     name: gestao-tarefas
+  mvc:
+    format:
+      enums:
+        ignore-case: true
   profiles:
     active:
       - dev

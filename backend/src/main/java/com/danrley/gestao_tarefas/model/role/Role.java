@@ -1,6 +1,6 @@
 package com.danrley.gestao_tarefas.model.role;
 
-import com.danrley.gestao_tarefas.model.user.UserRole;
+import com.danrley.gestao_tarefas.model.user.UserRoleEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,9 +29,9 @@ public class Role {
 
   @Enumerated(EnumType.STRING)
   @Column(unique = true, nullable = false)
-  private UserRole name;
+  private UserRoleEnum name;
 
-  public static Role from(UserRole userRole) {
+  public static Role from(UserRoleEnum userRole) {
     return Role.builder()
         .name(userRole)
         .build();

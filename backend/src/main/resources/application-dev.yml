@@ -3,6 +3,7 @@ spring:
     activate:
       on-profile:
         - dev
+
   jackson:
     time-zone: America/Recife
 
@@ -20,8 +21,11 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
+
+app:
+  database-seeder-enabled: true
 
 server:
   port: 3000
@@ -30,6 +34,6 @@ logging:
   level:
     "[org.hibernate.sql]": debug
     "[com.danrley]": debug
-    org: 
+    org:
       springframework:
         security: DEBUG

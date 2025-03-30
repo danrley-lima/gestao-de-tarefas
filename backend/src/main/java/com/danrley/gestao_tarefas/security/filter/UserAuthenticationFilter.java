@@ -31,6 +31,11 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
       @NonNull FilterChain filterChain)
       throws ServletException, IOException {
 
+    if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+      filterChain.doFilter(request, response);
+      return;
+    }
+
     if (isPublicRoute(request)) {
       filterChain.doFilter(request, response);
       return;
@@ -63,7 +68,8 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 
   private boolean isPublicRoute(HttpServletRequest request) {
     String path = request.getServletPath();
-    return path.startsWith("/api/auth/")
-        || path.startsWith("/swagger-ui/");
+    return path.startsWith("/api/auth") ||
+        path.startsWith("/swagger-ui") ||
+        path.startsWith("/v3/api-docs");
   }
 }

@@ -1,6 +1,6 @@
 package com.danrley.gestao_tarefas.model.task;
 
-public enum TaskStatus {
+public enum TaskStatusEnum {
   IN_PROGRESS,
   COMPLETED
 }
