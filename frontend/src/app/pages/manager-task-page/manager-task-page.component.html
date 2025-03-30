@@ -1,0 +1,44 @@
+<header class="header container">
+  <app-header
+  [breadcrumbs]="manager.breadcrumbs"
+  [title]="manager.title"
+  [subtitle]="manager.subtitle"
+  [buttonLabel]="manager.buttonText"
+  [subtitleButton]="manager.subtitleButton"
+  [onClick]="onClickCreateTask"></app-header>
+</header>
+
+
+  <section class="section">
+  <form [formGroup]="taskForm" class="filter-container">
+    <div class="container">
+      <div class="filter-grid">
+        <app-input label="Número" placeholder="Busque por um número" formControlName="number"></app-input>
+        <app-input label="Título" placeholder="Busque por um título" formControlName="title"></app-input>
+        <div class="actions-grid-container">
+          <div class="select-grid-2">
+            <app-filter-select label="Responsável" [options]="[
+                { value: 'todos', label: 'Todos' },
+                { value: 'pendente', label: 'Pendente' },
+                { value: 'concluido', label: 'Concluído' }
+              ]" formControlName="assignee"></app-filter-select>
+            {{taskForm.get('assignee')?.value}}
+            <app-filter-select label="Status" [options]="[
+                { value: 'todos', label: 'Todos' },
+                { value: 'pendente', label: 'Pendente' },
+                { value: 'concluido', label: 'Concluído' }
+              ]" formControlName="priority"></app-filter-select>
+          </div>
+          <button class="btn-primary">
+            <i class="pi pi-search"></i>
+            Buscar tarefas
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div style="width: 100%; height: 75%;">
+    <app-table [data]="tasks"></app-table>
+  </div>
+</section>
