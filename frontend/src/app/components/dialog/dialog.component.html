@@ -1,0 +1,15 @@
+<p-dialog header="{{header}}" closable="false" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+
+  <div class="info-container">
+    <app-info-dialog [title]="'Responsável'" [info]="task?.assignee" />
+    <app-info-dialog [title]="'Descrição'" [info]="task?.description" />
+    <app-info-dialog [title]="'Prioridade'" [info]="task?.priority" />
+    <app-info-dialog [title]="'Data limite'" [info]="task?.deadline" />
+    <app-info-dialog [title]="'Criado em'" [info]="task?.createdAt" />
+    <app-info-dialog [title]="'Atualizado em'" [info]="task?.updatedAt" />
+  </div>
+
+  <div class="button-container">
+    <p-button label="Fechar" severity="secondary" (click)="onClose()" />
+  </div>
+</p-dialog>

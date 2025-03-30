@@ -1,0 +1,16 @@
+
+
+  <p>Página Inicial > Tarefas</p>
+  <div class="header-content">
+    <div class="header-title">
+      <h1>{{title}}</h1>
+      <h2>{{subtitle}}</h2>
+    </div>
+    @if (buttonLabel && subtitleButton) {
+      <div class="header-button">
+        <span>{{subtitleButton}}</span>
+        <app-button title="{{buttonLabel}}"(click)="onClick()"></app-button>
+      </div>
+    }
+
+  </div>

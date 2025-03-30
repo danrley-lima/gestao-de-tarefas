@@ -1,0 +1,90 @@
+:host {
+  --p-inputtext-hover-border-color: var(--color-primary);
+  --p-select-hover-border-color: var(--color-primary);
+  --p-textarea-hover-border-color: var(--color-primary);
+  --p-inputtext-focus-ring-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.171);
+  --p-textarea-focus-ring-shadow: 0 0 0 0.2rem  rgba(63, 63, 63, 0.171);
+  --p-select-focus-ring-shadow: 0 0 0 0.2rem  rgba(63, 63, 63, 0.171);
+  --p-inputtext-focus-border-color: var(--color-primary-light);
+  --p-select-focus-border-color: var(--color-primary-light);
+  --p-textarea-focus-border-color: var(--color-primary-light);
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  padding: 4rem 0;
+
+  .create-task-container {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 3.5rem 2.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+
+  .filter-grid {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 1rem;
+    justify-content: space-between;
+    margin: 0;
+
+    .btn-primary {
+      all: unset;
+      background-color: var(--color-primary);
+      color: white;
+      transition: all 0.3s ease-in-out;
+      display: inline-block;
+      min-width: 8rem;
+      cursor: pointer;
+      text-align: center;
+      font-size: 0.8rem;
+      padding: 0.4rem 1rem;
+      border-radius: 0.2rem;
+      border: var(--color-primary) 1px solid;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-color: var(--color-primary-light);
+        color: black;
+      }
+    }
+  }
+
+  .text-input {
+    width: 100%;
+  }
+
+}
+
+
+
+
+header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  max-height: 15%;
+  padding: 1rem 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.flex-container {
+  width: 100%;
+  height: 80%;
+}
+

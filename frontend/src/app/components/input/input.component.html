@@ -1,0 +1,11 @@
+<div class="input-container">
+  <span>{{ label }}</span>
+  <input
+    type="text"
+    [placeholder]="placeholder"
+    [value]="value"
+    [disabled]="disabled"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+  />
+</div>

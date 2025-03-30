@@ -1,0 +1,22 @@
+
+  <section>
+  <form [formGroup]="signinForm" class="signin-container">
+    <div class="filter-grid">
+
+      <p-floatlabel>
+        <input class="text-input" variant="filled" pInputText id="login" formControlName="login" autocomplete="off" />
+        <label for="login">Escreva um t;itulo para tarefa</label>
+      </p-floatlabel>
+      <p-floatlabel>
+        <input class="text-input" variant="filled" pInputText id="password" formControlName="password" autocomplete="off" />
+        <label for="password">Escreva um t;itulo para tarefa</label>
+      </p-floatlabel>
+      <button class="btn-primary" (click)="onSignin()">
+        <i class="pi pi-plus"></i>
+      Entrar
+      </button>
+
+    </div>
+
+  </form>
+</section>

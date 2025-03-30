@@ -1,0 +1,79 @@
+
+  <app-dialog
+  [visible]="selectedTask != null"
+  [task]="selectedTask"
+  [header]="selectedTask?.title"
+  (closeDialog)="closeDialog()"/>
+
+  <div class="content container">
+  <div class="grid-2">
+    <p>
+      Foram encontradas
+      <span style="color: var(--color-primary)">{{data.length}} tarefas</span>
+    </p>
+    <app-caption />
+  </div>
+
+  <p-table #dt2 [value]="data" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+          [globalFilterFields]="[
+              'number',
+              'title',
+              'assignee',
+              'priority',
+              'deadline'
+            ]" [tableStyle]="{ width: '100%' }">
+          <ng-template #header>
+            <tr>
+              <th style="width: 12%; color: var(--color-primary)">Número</th>
+              <th style="
+                    width: 22%;
+                    align-items: center;
+                    color: var(--color-primary);
+                  ">
+                Título
+              </th>
+              <th style="width: 22%; color: var(--color-primary)">
+                Responsável
+              </th>
+              <th style="width: 12%; color: var(--color-primary)">Prioridade</th>
+              <th style="width: 12%; color: var(--color-primary)">Data limite</th>
+              <th style="width: 12%; color: var(--color-primary)">Ações</th>
+            </tr>
+          </ng-template>
+          <ng-template #body let-task>
+            <tr>
+              <td>
+                {{ task.number }}
+              </td>
+              <td>
+                {{ task.title }}
+              </td>
+              <td>
+                {{ task.assignee }}
+              </td>
+              <td>
+                {{ task.priority }}
+              </td>
+              <td>data</td>
+              <td>
+                <div style="
+                      display: flex;
+                      justify-content: space-around;
+                      font-size: 0.8rem;
+                      color: var(--color-primary);
+                    ">
+                    <app-icon-button icon="pi pi-eye" (click)="showTaskDetails(task)"/>
+                    <app-icon-button icon="pi pi-pen-to-square"/>
+                    <app-icon-button icon="pi pi-trash"/>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template #emptymessage>
+            <tr>
+              <td colspan="6">Nenhuma tarefa encontrada.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+      </div>
