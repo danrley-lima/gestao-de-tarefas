@@ -1,20 +1,33 @@
 
   <section>
     <img src="/assets/image.png" alt="Hero Image" />
-  <form [formGroup]="signinForm" class="signin-container">
-    <div class="filter-grid">
-      <p-floatlabel>
-        <input class="text-input" variant="filled" pInputText id="login" formControlName="login" autocomplete="off" />
-        <label for="login">Escreva um t;itulo para tarefa</label>
-      </p-floatlabel>
-      <p-floatlabel>
-        <input class="text-input" variant="filled" pInputText id="password" formControlName="password" autocomplete="off" />
-        <label for="password">Escreva um t;itulo para tarefa</label>
-      </p-floatlabel>
-      <button class="btn-primary" (click)="onSignin()">
-        <i class="pi pi-plus"></i>
-      Entrar
-      </button>
+
+    <div class="signin-container">
+      <form [formGroup]="signinForm" class="form-grid">
+
+<div class="form-header">
+  <h1>Seja bem vindo(a)!</h1>
+  <div>
+    <h2>Login</h2>
+    <h3>DIGITE SEUS DADOS ABAIXO</h3>
+  </div>
+</div>
+
+
+        <p-floatlabel>
+          <input class="text-input" variant="filled" pInputText id="login" formControlName="login" autocomplete="off" />
+          <label for="login">Escreva um t;itulo para tarefa</label>
+        </p-floatlabel>
+        <p-floatlabel>
+          <input class="text-input" variant="filled" pInputText id="password" formControlName="password" autocomplete="off" />
+          <label for="password">Escreva um t;itulo para tarefa</label>
+        </p-floatlabel>
+        <button class="btn-primary" (click)="onSignin()">
+          <i class="pi pi-plus"></i>
+        Entrar
+        </button>
+    </form>
     </div>
-  </form>
+
+
 </section>

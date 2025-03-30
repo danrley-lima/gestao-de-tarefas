@@ -7,7 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-root',
-  imports: [ReactiveFormsModule, FloatLabelModule, InputTextModule, NgOptimizedImage],
+  imports: [ReactiveFormsModule, FloatLabelModule, InputTextModule],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss'
 })
