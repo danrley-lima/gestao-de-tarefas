@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.danrley.gestao_tarefas.dto.ErrorResponseDto;
+import com.danrley.gestao_tarefas.exception.custom.EmailAlreadyExistsException;
+import com.danrley.gestao_tarefas.exception.custom.InvalidCredentialsException;
 import com.danrley.gestao_tarefas.exception.custom.InvalidTokenException;
 import com.danrley.gestao_tarefas.exception.custom.TaskNotFoundException;
 import com.danrley.gestao_tarefas.exception.custom.TokenGenerationException;
+import com.danrley.gestao_tarefas.exception.custom.UserNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -88,5 +91,35 @@ public class GlobalExceptionHandler {
             401,
             "Unauthorized",
             ex.getMessage()));
+  }
+
+  @ExceptionHandler(EmailAlreadyExistsException.class)
+  public ResponseEntity<ErrorResponseDto> handleEmailConflict(EmailAlreadyExistsException ex) {
+    return ResponseEntity
+        .status(HttpStatus.CONFLICT)
+        .body(new ErrorResponseDto(
+            409,
+            "Conflict",
+            ex.getMessage()));
+  }
+
+  @ExceptionHandler(UserNotFoundException.class)
+  public ResponseEntity<ErrorResponseDto> handleUserNotFound(UserNotFoundException ex) {
+    return ResponseEntity
+        .status(HttpStatus.NOT_FOUND)
+        .body(new ErrorResponseDto(
+            404,
+            "Not Found",
+            ex.getMessage()));
+  }
+
+  @ExceptionHandler(InvalidCredentialsException.class)
+  public ResponseEntity<ErrorResponseDto> handleInvalidCredentials() {
+    return ResponseEntity
+        .status(HttpStatus.UNAUTHORIZED)
+        .body(new ErrorResponseDto(
+            401,
+            "Unauthorized",
+            "Invalid email or password"));
   }
 }
