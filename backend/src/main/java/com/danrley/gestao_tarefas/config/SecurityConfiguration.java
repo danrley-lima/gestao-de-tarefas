@@ -40,8 +40,10 @@ public class SecurityConfiguration {
         .authorizeHttpRequests(requests -> requests
             .requestMatchers(
                 "/api/auth/**",
+                "/swagger-ui.html",
                 "/swagger-ui/**",
                 "/v3/api-docs/**")
+            // "/error")
             .permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

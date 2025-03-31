@@ -4,6 +4,7 @@ import { CreateTaskDTO } from 'domain/dto/CreateTaskDTO';
 import { Task } from 'domain/Task.types';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../environment';
+import { UpdateTaskReqDTO } from 'domain/dto/UpdateTaskReqDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -31,5 +32,16 @@ export class TaskService {
         }))
       )
     );
+  }
+
+  updateTask(task: UpdateTaskReqDTO): Observable<UpdateTaskReqDTO> {
+    return this.http.put<UpdateTaskReqDTO>(
+      `${environment.apiUrl}${this.API_PATH}/${task.id}`,
+      task
+    );
+  }
+
+  deleteTask(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}${this.API_PATH}/${id}`);
   }
 }

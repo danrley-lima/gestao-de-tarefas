@@ -1,16 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-icon-button',
   imports: [],
   templateUrl: './iconButton.component.html',
-  styleUrl: './iconButton.component.scss'
+  styleUrl: './iconButton.component.scss',
 })
-
 export class IconButtonComponent {
-onClick() {
-throw new Error('Method not implemented.');
-}
+  @Output() clickEvent = new EventEmitter<void>();
 
-@Input() icon: string = 'pi pi-check';
+  @Input() icon: string = 'pi pi-check';
+
+  onClick() {
+    this.clickEvent.emit();
+  }
 }

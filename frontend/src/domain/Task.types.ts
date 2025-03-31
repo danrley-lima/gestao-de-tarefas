@@ -3,7 +3,7 @@ import { TaskStatus } from "./TaskStatus.enum";
 
 export type Task = {
   id: number;
-  title: string;
+  title?: string;
   description?: string;
   assignee?: {
     id: number;

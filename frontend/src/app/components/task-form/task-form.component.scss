@@ -3,20 +3,20 @@
   --p-select-hover-border-color: var(--color-primary);
   --p-textarea-hover-border-color: var(--color-primary);
   --p-inputtext-focus-ring-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.171);
-  --p-textarea-focus-ring-shadow: 0 0 0 0.2rem  rgba(63, 63, 63, 0.171);
-  --p-select-focus-ring-shadow: 0 0 0 0.2rem  rgba(63, 63, 63, 0.171);
+  --p-textarea-focus-ring-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.171);
+  --p-select-focus-ring-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.171);
   --p-inputtext-focus-border-color: var(--color-primary-light);
   --p-select-focus-border-color: var(--color-primary-light);
   --p-textarea-focus-border-color: var(--color-primary-light);
 }
 
-
 .create-task-container {
   display: flex;
   flex-direction: column;
   align-items: start;
+  width: 100%;
+  height: 40rem;
 }
-
 
 .filter-grid {
   display: flex;
@@ -24,7 +24,7 @@
   height: 100%;
   width: 100%;
   gap: 1rem;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 0;
 
   .btn-primary {

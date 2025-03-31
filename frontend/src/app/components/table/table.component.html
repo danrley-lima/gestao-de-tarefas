@@ -1,17 +1,20 @@
+<app-dialog
+  [visible]="selectedTask != null && !editMode"
+  [task]="selectedTask"
+  [header]="selectedTask?.title"
+  [edit]="editMode"
+  style="height: 100vh;"
+  (closeDialog)="closeDialog()"
+/>
 
 <app-dialog
-[visible]="selectedTask != null && !editMode"
-[task]="selectedTask"
-[header]="selectedTask?.title"
-[edit]="editMode"
-(closeDialog)="closeDialog()"/>
-
-<app-dialog
-[visible]="selectedTask != null && editMode"
-[task]="selectedTask"
-[edit]="editMode"
-[header]="'Editar tarefa'"
-(closeDialog)="closeDialog()"/>
+  [visible]="selectedTask != null && editMode"
+  [task]="selectedTask"
+  [edit]="editMode"
+  [header]="'Editar tarefa'"
+  style="height: 100vh;"
+  (closeDialog)="closeDialog()"
+/>
 
 <div class="content container">
   <div class="grid-2">
@@ -103,7 +106,10 @@
             "
           >
             <app-icon-button icon="pi pi-eye" (click)="showTaskDetails(task)" />
-            <app-icon-button icon="pi pi-pen-to-square" (click)="editTaskDetails(task)"  />
+            <app-icon-button
+              icon="pi pi-pen-to-square"
+              (click)="editTaskDetails(task)"
+            />
             <app-icon-button icon="pi pi-trash" />
           </div>
         </td>

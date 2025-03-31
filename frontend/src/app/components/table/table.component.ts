@@ -42,6 +42,7 @@ export class TableComponent {
 
   closeDialog() {
     this.selectedTask = null;
+    this.editMode = false;
   }
 
   customSort(event: SortEvent) {

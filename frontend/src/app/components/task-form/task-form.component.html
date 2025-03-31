@@ -1,18 +1,21 @@
-<form [formGroup]="createTaskForm" class="create-task-container">
+<form [formGroup]="taskForm" class="create-task-container">
   <div class="filter-grid">
-    <p-floatlabel>
-      <input
-        class="text-input"
-        variant="filled"
-        pInputText
-        id="title"
-        formControlName="title"
-        autocomplete="off"
-      />
-      <label for="title">Escreva um título para tarefa</label>
-    </p-floatlabel>
 
-    <p-floatlabel>
+    <div>
+    <label for="title">Título</label>
+      <input
+      class="text-input"
+      variant="filled"
+      pInputText
+      id="title"
+      formControlName="title"
+      autocomplete="off"
+    />
+
+    </div>
+
+    <div>
+    <label for="description">Descrição da tarefa</label>
       <textarea
         class="text-input"
         pTextarea
@@ -22,18 +25,26 @@
         style="resize: none"
         formControlName="description"
       ></textarea>
-      <label for="description">Escreva a descrição da tarefa</label>
+    </div>
+
+    <p-floatlabel>
+      <label for="date">Data limite</label>
+      <p-datepicker
+        inputId="date"
+        showIcon
+        iconDisplay="input"
+        formControlName="deadline"
+        dateFormat="dd/mm/yy"
+        [showTime]="false"
+      ></p-datepicker>
     </p-floatlabel>
 
     <p-select
-      optionLabel="name"
       id="assignee"
+      optionLabel="name"
       optionValue="value"
       formControlName="assignee"
-      [options]="[
-        { value: 'Pessoa 1', name: 'Pessoa 1' },
-        { value: 'Pessoa 2', name: 'Pessoa 2' }
-      ]"
+      [options]="fetchUsers"
       optionLabel="name"
       placeholder="Selecione um responsável"
     />
@@ -43,22 +54,25 @@
       optionValue="value"
       formControlName="priority"
       [options]="[
-        { value: 'pendente', name: 'Pendente' },
-        { value: 'concluido', name: 'Concluído' }
+        { name: 'Baixa', value: 'LOW' },
+        { name: 'Média', value: 'MEDIUM' },
+        { name: 'Alta', value: 'HIGH' }
       ]"
-      optionLabel="name"
       placeholder="Selecione a prioridade"
     />
 
-    <p-floatlabel>
-      <p-datepicker
-        inputId="over_label"
-        showIcon
-        iconDisplay="input"
-        class="text-input"
-      />
-      <label for="over_label">Data limite</label>
-    </p-floatlabel>
+    <p-select
+      optionLabel="name"
+      optionValue="value"
+      formControlName="status"
+      [options]="[
+        { name: 'Pendente', value: 'IN_PROGRESS',  },
+        { name: 'Concluído', value: 'COMPLETED', }
+      ]"
+      placeholder="Selecione um status"
+    />
+
+
     <button class="btn-primary" (click)="onClick()">
       <i class="pi pi-plus"></i>
       Enviar

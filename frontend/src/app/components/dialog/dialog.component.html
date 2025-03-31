@@ -1,17 +1,30 @@
-<p-dialog header="{{header}}" closable="false" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-
+<p-dialog
+  header="{{ header }}"
+  closable="false"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '35rem' }"
+>
   @if (edit) {
-    <app-task-form [edit]="false"></app-task-form>
-  }
-  @else {
-    <div class="info-container">
-      <app-info-dialog [title]="'Responsável'" [info]="task?.assignee" />
-      <app-info-dialog [title]="'Descrição'" [info]="task?.description" />
-      <app-info-dialog [title]="'Prioridade'" [info]="task?.priority" />
-      <app-info-dialog [title]="'Data limite'" [info]="task?.deadline" />
-      <app-info-dialog [title]="'Criado em'" [info]="task?.createdAt" />
-      <app-info-dialog [title]="'Atualizado em'" [info]="task?.updatedAt" />
-    </div>
+  <app-task-form [edit]="true" [task]="task"></app-task-form>
+  } @else {
+  <div class="info-container">
+    <app-info-dialog [title]="'Responsável'" [info]="task?.assignee?.name" />
+    <app-info-dialog [title]="'Descrição'" [info]="task?.description" />
+    <app-info-dialog
+      [title]="'Prioridade'"
+      [info]="task?.priority! | priorityTranslate"
+    />
+    <app-info-dialog
+      [title]="'Data limite'"
+      [info]="task?.deadline | date : 'dd/MM/yyyy'"
+    />
+    <app-info-dialog
+      [title]="'Criado em'"
+      [info]="task?.createdAt | date : 'dd/MM/yyyy'"
+    />
+    <!-- <app-info-dialog [title]="'Atualizado em'" [info]="task?.updatedAt" /> -->
+  </div>
   }
 
   <div class="button-container">
