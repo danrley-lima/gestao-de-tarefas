@@ -7,44 +7,11 @@
   [subtitleButton]="create.subtitleButton"></app-header>
 </header>
 
-
 <section>
-  <form [formGroup]="createTaskForm" class="create-task-container">
-    <div class="filter-grid">
 
-      <p-floatlabel>
-        <input class="text-input" variant="filled" pInputText id="title" formControlName="title" autocomplete="off" />
-        <label for="title">Escreva um t;itulo para tarefa</label>
-      </p-floatlabel>
+  <div class="create-task-container">
+    <h1>Editar tarefa</h1>
+    <app-task-form style="width: 50%;" [edit]="false"></app-task-form>
+  </div>
 
-      <p-floatlabel>
-        <textarea class="text-input" pTextarea id="description" rows="5" cols="30" style="resize: none"
-          formControlName="description"></textarea>
-        <label for="description">Escreva a descrição da tarefa</label>
-      </p-floatlabel>
-
-      <p-select optionLabel="name" id="assignee" optionValue="value" formControlName="assignee" [options]="[
-            { value: 'todos', name: 'Todos' },
-            { value: 'pendente', name: 'Pendente' },
-            { value: 'concluido', name: 'Concluído' }
-          ]" optionLabel="name" placeholder="Selecione um responsável" />
-
-      <p-select optionLabel="name" optionValue="value" formControlName="priority" [options]="[
-                  { value: 'todos', name: 'Todos' },
-                  { value: 'pendente', name: 'Pendente' },
-                  { value: 'concluido', name: 'Concluído' }
-                ]" optionLabel="name" placeholder="Select a prioridade" />
-
-      <p-floatlabel>
-        <p-datepicker inputId="over_label" showIcon iconDisplay="input" class="text-input" />
-        <label for="over_label">Over Label</label>
-      </p-floatlabel>
-      <button class="btn-primary" (click)="onCreateTask()">
-        <i class="pi pi-plus"></i>
-        Cadastrar tarefa
-      </button>
-
-    </div>
-
-  </form>
 </section>

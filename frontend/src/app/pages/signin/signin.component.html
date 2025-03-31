@@ -1,33 +1,30 @@
+<section>
+  <img src="/assets/image.png" alt="Hero Image" />
 
-  <section>
-    <img src="/assets/image.png" alt="Hero Image" />
+  <div class="signin-container">
+    <form [formGroup]="signinForm" class="form-grid">
 
-    <div class="signin-container">
-      <form [formGroup]="signinForm" class="form-grid">
+      <div class="form-header">
+        <h1>Seja bem vindo(a)!</h1>
+        <div class="form-header-content">
+          <h2>Login</h2>
+          <h3>DIGITE SEUS DADOS ABAIXO</h3>
+        </div>
+      </div>
 
-<div class="form-header">
-  <h1>Seja bem vindo(a)!</h1>
-  <div>
-    <h2>Login</h2>
-    <h3>DIGITE SEUS DADOS ABAIXO</h3>
-  </div>
-</div>
-
-
-        <p-floatlabel>
+      <div class="form-inputs-container">
+        <div class="input"> <label for="login">E-mail</label>
           <input class="text-input" variant="filled" pInputText id="login" formControlName="login" autocomplete="off" />
-          <label for="login">Escreva um t;itulo para tarefa</label>
-        </p-floatlabel>
-        <p-floatlabel>
-          <input class="text-input" variant="filled" pInputText id="password" formControlName="password" autocomplete="off" />
-          <label for="password">Escreva um t;itulo para tarefa</label>
-        </p-floatlabel>
-        <button class="btn-primary" (click)="onSignin()">
-          <i class="pi pi-plus"></i>
+        </div>
+        <div class="input"> <label for="password">Senha</label>
+          <input class="text-input" variant="filled" pInputText id="password" formControlName="password"
+            autocomplete="off" />
+        </div>
+      </div>
+
+      <button class="btn-primary" (click)="onSignin()">
         Entrar
-        </button>
+      </button>
     </form>
-    </div>
-
-
+  </div>
 </section>

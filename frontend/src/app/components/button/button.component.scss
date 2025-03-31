@@ -1,21 +1,19 @@
 .btn-primary {
-  all: unset; 
+  all: unset;
   background-color: var(--color-primary);
   color: white;
-  padding: 0.8rem 2rem;
-  border-radius: 1rem;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  padding: 0.8rem 0;
+  border-radius: 1.8rem;
   transition: all 0.3s ease-in-out;
-  display: inline-block; 
-  cursor: pointer; 
-  text-align: center; 
-  padding: 0.8rem 2rem; 
-  border-radius: 1.8rem; 
-  transition: all 0.3s ease-in-out; 
 
   &:hover {
     background-color: var(--color-primary-light);
     color: black;
   }
+
   &:active {
     background-color: (--color-primary-light);
   }

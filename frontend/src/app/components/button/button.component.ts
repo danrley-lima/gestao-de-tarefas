@@ -4,9 +4,9 @@ import { Component, Input } from '@angular/core';
   selector: 'app-button',
   imports: [],
   templateUrl: './button.component.html',
-  styleUrl: './button.component.scss'
+  styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-@Input() title: string = '';
-icon?: string = 'pi pi-check';
+  @Input() title: string = '';
+  icon?: string = 'pi pi-check';
 }

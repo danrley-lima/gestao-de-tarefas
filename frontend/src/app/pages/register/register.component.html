@@ -1,1 +1,35 @@
-<p>register works!</p>
+<section>
+  <img src="/assets/image.png" alt="Hero Image" />
+
+  <div class="signin-container">
+    <form [formGroup]="registerForm" class="form-grid">
+
+      <div class="form-header">
+        <h1>Registre-se</h1>
+        <div class="form-header-content">
+          <h2>Faça uma nova consta</h2>
+          <h3>DIGITE SEUS DADOS ABAIXO</h3>
+        </div>
+      </div>
+
+      <div class="form-inputs-container">
+        <div class="input"> <label for="name">Nome</label>
+          <input class="text-input" variant="filled" pInputText id="name" formControlName="name" autocomplete="off" />
+        </div>
+        <div class="input"> <label for="login">E-mail</label>
+          <input class="text-input" variant="filled" pInputText id="login" formControlName="login" autocomplete="off" />
+        </div>
+        <div class="input"> <label for="password">Senha</label>
+          <input class="text-input" variant="filled" pInputText id="password" formControlName="password"
+            autocomplete="off" />
+        </div>
+      </div>
+
+      <button class="btn-primary" (click)="onSignUp()">
+        Registrar-se
+      </button>
+    </form>
+  </div>
+
+
+</section>

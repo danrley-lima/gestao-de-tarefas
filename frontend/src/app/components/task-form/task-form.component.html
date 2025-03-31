@@ -1,0 +1,67 @@
+<form [formGroup]="createTaskForm" class="create-task-container">
+  <div class="filter-grid">
+    <p-floatlabel>
+      <input
+        class="text-input"
+        variant="filled"
+        pInputText
+        id="title"
+        formControlName="title"
+        autocomplete="off"
+      />
+      <label for="title">Escreva um título para tarefa</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+      <textarea
+        class="text-input"
+        pTextarea
+        id="description"
+        rows="5"
+        cols="30"
+        style="resize: none"
+        formControlName="description"
+      ></textarea>
+      <label for="description">Escreva a descrição da tarefa</label>
+    </p-floatlabel>
+
+    <p-select
+      optionLabel="name"
+      id="assignee"
+      optionValue="value"
+      formControlName="assignee"
+      [options]="[
+        { value: 'Pessoa 1', name: 'Pessoa 1' },
+        { value: 'Pessoa 2', name: 'Pessoa 2' }
+      ]"
+      optionLabel="name"
+      placeholder="Selecione um responsável"
+    />
+
+    <p-select
+      optionLabel="name"
+      optionValue="value"
+      formControlName="priority"
+      [options]="[
+        { value: 'pendente', name: 'Pendente' },
+        { value: 'concluido', name: 'Concluído' }
+      ]"
+      optionLabel="name"
+      placeholder="Selecione a prioridade"
+    />
+
+    <p-floatlabel>
+      <p-datepicker
+        inputId="over_label"
+        showIcon
+        iconDisplay="input"
+        class="text-input"
+      />
+      <label for="over_label">Data limite</label>
+    </p-floatlabel>
+    <button class="btn-primary" (click)="onClick()">
+      <i class="pi pi-plus"></i>
+      Enviar
+    </button>
+  </div>
+</form>

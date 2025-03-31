@@ -31,13 +31,13 @@ public class SecurityConfiguration {
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
     httpSecurity
+        .cors(cors -> cors.configure(httpSecurity))
         .csrf(csrf -> csrf.disable())
         .sessionManagement(session -> session
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .formLogin(login -> login.disable())
         .httpBasic(basic -> basic.disable())
         .authorizeHttpRequests(requests -> requests
-            // .anyRequest().permitAll());
             .requestMatchers(
                 "/api/auth/**",
                 "/swagger-ui/**",

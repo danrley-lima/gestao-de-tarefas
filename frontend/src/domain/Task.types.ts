@@ -2,13 +2,17 @@ import { TaskPriority } from "./TaskPriority.enum";
 import { TaskStatus } from "./TaskStatus.enum";
 
 export type Task = {
-  number: number;
+  id: number;
   title: string;
-  description: string;
-  assignee: string;
+  description?: string;
+  assignee?: {
+    id: number;
+    name: string;
+    email: string;
+  };
   priority: TaskPriority;
   deadline: Date;
   status: TaskStatus;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
