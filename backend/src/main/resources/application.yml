@@ -12,5 +12,5 @@ spring:
 api:
   security:
     token:
-      secret: segredao-123
+      secret: gise-terces
       expiration: 86400000

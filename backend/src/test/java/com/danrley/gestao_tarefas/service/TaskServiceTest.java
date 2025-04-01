@@ -21,6 +21,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.danrley.gestao_tarefas.dto.task.TaskFilterDto;
@@ -126,7 +127,7 @@ public class TaskServiceTest {
 
   @Test
   public void testGetAllTasks() {
-    when(taskRepository.findAll()).thenReturn(Arrays.asList(dummyTask));
+    when(taskRepository.findAll(any(Sort.class))).thenReturn(Arrays.asList(dummyTask));
     List<TaskResponseDto> tasks = taskService.getAllTasks();
     assertNotNull(tasks);
     assertEquals(1, tasks.size());

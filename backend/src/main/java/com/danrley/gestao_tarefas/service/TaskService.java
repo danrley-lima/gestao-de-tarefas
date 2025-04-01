@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import com.danrley.gestao_tarefas.dto.task.TaskFilterDto;
 import com.danrley.gestao_tarefas.dto.task.TaskRequestDto;
@@ -53,7 +54,7 @@ public class TaskService {
   }
 
   public List<TaskResponseDto> getAllTasks() {
-    return taskRepository.findAll().stream()
+    return taskRepository.findAll(Sort.by(Sort.Direction.ASC, "id")).stream()
         .map(this::toResponse)
         .toList();
   }
