@@ -10,6 +10,22 @@ section {
     justify-content: center;
   }
 
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    color: var(--color-text-placeholder);
+
+    a {
+        color: var(--color-primary);
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+    }
+  }
+
   .form-inputs-container {
     display: flex;
     flex-direction: column;
@@ -107,4 +123,5 @@ img {
   &:active {
     background-color: (--color-primary-light);
   }
+
 }

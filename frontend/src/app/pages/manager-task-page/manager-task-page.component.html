@@ -1,68 +1,81 @@
-<header class="header container">
-  <app-header
-    [breadcrumbs]="manager.breadcrumbs"
-    [title]="manager.title"
-    [subtitle]="manager.subtitle"
-    [buttonLabel]="manager.buttonText"
-    [subtitleButton]="manager.subtitleButton"
-    [onClick]="onClickCreateTask"
-  ></app-header>
-</header>
+<div class="router-container">
+  <header class="header container">
+    <p-toast></p-toast>
+    <app-header
+      [breadcrumbs]="manager.breadcrumbs"
+      [title]="manager.title"
+      [subtitle]="manager.subtitle"
+      [buttonLabel]="manager.buttonText"
+      [subtitleButton]="manager.subtitleButton"
+      [onClick]="onClickCreateTask"
+    ></app-header>
+  </header>
 
-<section class="section">
-  <div *ngIf="loading" class="loading-overlay">
-    <p-progressSpinner></p-progressSpinner>
-  </div>
+  <section class="section">
+    <div *ngIf="loading" class="loading-overlay">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
 
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
 
-  <form [formGroup]="taskForm" class="filter-container">
-    <div class="container">
-      <div class="filter-grid">
-        <app-input
-          label="Número"
-          placeholder="Busque por um número"
-          formControlName="number"
-        ></app-input>
-        <app-input
-          label="Título"
-          placeholder="Busque por um título"
-          formControlName="title"
-        ></app-input>
-        <div class="actions-grid-container">
-          <div class="select-grid-2">
-            <app-filter-select
-              label="Responsável"
-              [options]="[
-                { value: 'todos', label: 'Todos' },
-                { value: 'pendente', label: 'Pendente' },
-                { value: 'concluido', label: 'Concluído' }
-              ]"
+    <form [formGroup]="taskForm" class="filter-container" (ngSubmit)="onSubmit()">
+      <div class="container">
+        <div class="filter-grid">
+          <app-input
+            label="Número"
+            placeholder="Busque pelo número da tarefa"
+            formControlName="id"
+            type="number"
+          ></app-input>
+          <app-input
+            label="Título"
+            placeholder="Busque por um título"
+            formControlName="title"
+          ></app-input>
+          <div class="actions-grid-container">
+            <div class="select-grid-2">
+              <label for="date">Responsável</label>
+              <p-select
+              id="assignee"
+              optionLabel="Responsável"
+              optionValue="value"
               formControlName="assignee"
-            ></app-filter-select>
-            {{ taskForm.get("assignee")?.value }}
-            <app-filter-select
-              label="Status"
-              [options]="[
-                { value: 'todos', label: 'Todos' },
-                { value: 'pendente', label: 'Pendente' },
-                { value: 'concluido', label: 'Concluído' }
-              ]"
-              formControlName="priority"
-            ></app-filter-select>
+              [options]="assignees"
+              optionLabel="name"
+              placeholder="Selecione um responsável"
+            />
+            <label for="date">Status</label>
+            <p-select
+            id="assignee"
+            optionLabel="Status"
+            optionValue="value"
+            formControlName="status"
+            [options]="[
+            { value: 'todos', name: 'Todos' },
+            { value: 'IN_PROGRESS', name: 'Pendente' },
+            { value: 'COMPLETED', name: 'Concluído' }
+          ]"
+            optionLabel="name"
+            placeholder="Selecione um responsável"
+          />
+            </div>
+            <button class="btn-clear-filter" type="button" (click)="loadTasks()">
+      Limpar filtros
+            </button>
+            <button class="btn-primary" type="submit">
+              <i class="pi pi-search"></i>
+              {{ loading ? 'Buscando...' : 'Buscar tarefas' }}
+            </button>
           </div>
-          <button class="btn-primary">
-            <i class="pi pi-search"></i>
-            Buscar tarefas
-          </button>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
 
-  <div style="width: 100%; height: 75%">
-    <app-table [data]="tasks"></app-table>
-  </div>
-</section>
+    <div style="width: 100%; height: 75%">
+      <app-table [data]="tasks" (loadTasks)="loadTasks()"></app-table>
+    </div>
+  </section>
+
+</div>

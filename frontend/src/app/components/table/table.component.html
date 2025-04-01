@@ -1,26 +1,90 @@
 <app-dialog
-  [visible]="selectedTask != null && !editMode"
+  [visible]="
+    selectedTask != null && !editMode && !deleteDialog && !checkTaskDialog
+  "
   [task]="selectedTask"
   [header]="selectedTask?.title"
   [edit]="editMode"
-  style="height: 100vh;"
+  style="height: 100vh"
   (closeDialog)="closeDialog()"
 />
 
 <app-dialog
-  [visible]="selectedTask != null && editMode"
+  [visible]="
+    selectedTask != null && editMode && !deleteDialog && !checkTaskDialog
+  "
   [task]="selectedTask"
   [edit]="editMode"
   [header]="'Editar tarefa'"
-  style="height: 100vh;"
+  style="height: 100vh"
   (closeDialog)="closeDialog()"
 />
+
+<p-dialog
+  header="Excluir tarefa"
+  closable="false"
+  [modal]="true"
+  [(visible)]="deleteDialog"
+  [style]="{ width: '35rem' }"
+>
+  <p>
+    Tem certeza que deseja excluir a tarefa
+    <span style="font-weight: 600; color: var(--color-primary)">{{
+      selectedTask?.title
+    }}</span
+    >?
+  </p>
+
+  <div class="button-container">
+    <p-button
+      label="Excluir"
+      severity="danger"
+      (click)="deleteTask(selectedTask!)"
+    ></p-button>
+    <p-button
+      label="Cancelar"
+      severity="secondary"
+      (click)="closeDeleteDialog()"
+    ></p-button>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Concluir tarefa"
+  closable="false"
+  [modal]="true"
+  [(visible)]="checkTaskDialog"
+  [style]="{ width: '35rem' }"
+>
+  <p>
+    Tem certeza que deseja concluir a tarefa
+    <span style="font-weight: 600; color: var(--color-primary)">{{
+      selectedTask?.title
+    }}</span
+    >?
+  </p>
+
+  <div class="button-container">
+    <p-button
+      label="Confirmar"
+      severity="success"
+      (click)="checkTask(selectedTask!)"
+    ></p-button>
+    <p-button
+      label="Cancelar"
+      severity="secondary"
+      (click)="closeDeleteDialog()"
+    ></p-button>
+  </div>
+</p-dialog>
 
 <div class="content container">
   <div class="grid-2">
     <p>
       Foram encontradas
-      <span style="color: var(--color-primary)">{{ data.length }} tarefas</span>
+      <span style="color: var(--color-primary)"
+        >{{ data.length }} tarefas
+      </span>
     </p>
     <app-caption />
   </div>
@@ -39,6 +103,7 @@
       'title',
       'assignee',
       'priority',
+      'status',
       'deadline'
     ]"
     [tableStyle]="{ width: '100%' }"
@@ -60,7 +125,7 @@
         <th
           [pSortableColumn]="'name'"
           [pSortableColumn]="'assignee.name'"
-          style="width: 22%; color: var(--color-primary)"
+          style="width: 18%; color: var(--color-primary)"
         >
           Responsável
         </th>
@@ -71,12 +136,18 @@
           Prioridade
         </th>
         <th
+          [pSortableColumn]="'priority'"
+          style="width: 12%; color: var(--color-primary)"
+        >
+          Status
+        </th>
+        <th
           [pSortableColumn]="'deadline'"
           style="width: 12%; color: var(--color-primary)"
         >
           Data limite
         </th>
-        <th style="width: 12%; color: var(--color-primary)">Ações</th>
+        <th style="width: 15%; color: var(--color-primary)">Ações</th>
       </tr>
     </ng-template>
     <ng-template #body let-task>
@@ -92,6 +163,9 @@
         </td>
         <td>
           {{ task.priority | priorityTranslate }}
+        </td>
+        <td>
+          {{ task.status | statusTranslate }}
         </td>
         <td>
           {{ task.deadline | date : "dd/MM/yyyy" }}
@@ -110,7 +184,14 @@
               icon="pi pi-pen-to-square"
               (click)="editTaskDetails(task)"
             />
-            <app-icon-button icon="pi pi-trash" />
+            <app-icon-button
+              icon="pi pi-trash"
+              (click)="showDeleteTaskPopUp(task)"
+            />
+
+            @if (task.status == 'IN_PROGRESS') {
+            <app-icon-button icon="pi pi-check" (click)="showCheckTask(task)" />
+            }
           </div>
         </td>
       </tr>

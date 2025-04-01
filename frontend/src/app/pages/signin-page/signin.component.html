@@ -1,0 +1,45 @@
+<section>
+  <p-toast></p-toast>
+  <img src="/assets/image.png" alt="Hero Image" />
+
+  <div class="signin-container">
+    <form [formGroup]="signinForm" class="form-grid">
+      <div class="form-header">
+        <h1>Seja bem vindo(a)!</h1>
+        <div class="form-header-content">
+          <h2>Login</h2>
+          <div class="footer">
+            Ainda não possui conta? <a routerLink="/register">Cadastre-se!</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inputs-container">
+        <div class="input">
+          <label for="login">E-mail</label>
+          <input
+            class="text-input"
+            variant="filled"
+            pInputText
+            id="login"
+            formControlName="login"
+          />
+        </div>
+        <div class="input">
+          <label for="password">Senha</label>
+          <input
+            class="text-input"
+            type="password"
+            variant="filled"
+            pInputText
+            id="password"
+            formControlName="password"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <button class="btn-primary" (click)="onSignin()">Entrar</button>
+    </form>
+  </div>
+</section>

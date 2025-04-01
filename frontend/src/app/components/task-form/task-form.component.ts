@@ -1,16 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { c } from '@angular/core/event_dispatcher.d-pVP0-wST';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TaskService } from 'app/services/task.service';
 import { UsersService } from 'app/services/users.service';
 import { Task } from 'domain/Task.types';
 import { TaskPriority } from 'domain/TaskPriority.enum';
 import { TaskStatus } from 'domain/TaskStatus.enum';
+import { MessageService } from 'primeng/api';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-task-form',
@@ -21,17 +22,23 @@ import { TextareaModule } from 'primeng/textarea';
     FloatLabelModule,
     InputTextModule,
     SelectModule,
+    ToastModule,
   ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
 })
 export class TaskFormComponent {
-  constructor(private taskService: TaskService, private userService : UsersService) {}
+  constructor(
+    private taskService: TaskService,
+    private userService: UsersService,
+    private messageService: MessageService
+  ) {}
 
   @Input() task: Task | null = null;
   @Input() edit: boolean = false;
+  @Output() closeDialog = new EventEmitter<void>();
 
-  fetchUsers: {name: string, value: string}[] = []
+  fetchUsers: { name: string; value: string }[] = [];
 
   taskForm = new FormGroup({
     title: new FormControl(''),
@@ -69,7 +76,7 @@ export class TaskFormComponent {
 
   onClick() {
     if (this.edit) {
-    console.log(this.task)
+      console.log(this.task);
       this.updateTask();
     } else {
       this.createTask();
@@ -84,21 +91,34 @@ export class TaskFormComponent {
       .create({
         title: title ?? '',
         description: description ?? '',
-        assignee: assignee || null,
+        assigneeId: Number(assignee) || null,
         priority:
           TaskPriority[priority as keyof typeof TaskPriority] ||
           TaskPriority.LOW,
-        deadline: deadline ? deadline.toString() : null,
+        deadline: deadline ? deadline.toISOString().split('T')[0] : null,
         status:
           TaskStatus[status as keyof typeof TaskStatus] ||
           TaskStatus.IN_PROGRESS,
       })
       .subscribe({
         next: (response) => {
-          console.log('Tarefa criada com sucesso:', response);
+          this.messageService.add({
+            severity: 'Success',
+            summary: 'Sucesso',
+            detail: 'Tarefa criada com sucesso',
+          });
+          this.taskForm.reset();
         },
         error: (err) => {
-          console.error('Erro ao criar tarefa:', err);
+          if (err.error.status === 400 && Array.isArray(err.error.errors)) {
+            err.error.errors.forEach((errorMessage: string) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Erro',
+                detail: errorMessage,
+              });
+            });
+          }
         },
       });
   }
@@ -107,21 +127,27 @@ export class TaskFormComponent {
     const { title, description, assignee, priority, deadline, status } =
       this.taskForm.value;
 
-      console.log(this.task!.id.toString())
+    console.log(this.task!.id.toString());
 
     this.taskService
       .updateTask({
         id: this.task!.id.toString(),
         title: title ?? null,
         description: description ?? null,
-        assigneeId:  assignee ?? null,
+        assigneeId: Number(assignee) ?? null,
         priority: TaskPriority[priority as keyof typeof TaskPriority] || null,
-        deadline: deadline ? deadline.toString() : null,
+        deadline: deadline ? new Date(deadline) : null,
         status: TaskStatus[status as keyof typeof TaskStatus] || null,
       })
       .subscribe({
         next: (response) => {
-          console.log('Tarefa atualizada com sucesso:', response);
+          this.messageService.add({
+            severity: 'Success',
+            summary: 'Sucesso',
+            detail: 'Tarefa atualizada com sucesso',
+          });
+
+          this.closeDialog.emit();
         },
         error: (err) => {
           console.error('Erro ao atualizar tarefa:', err);

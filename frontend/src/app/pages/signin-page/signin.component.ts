@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   FormControl,
@@ -5,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from 'app/services/auth.service';
 import { LoginRequestDTO } from 'domain/dto/LoginRequestDTO';
 import { MessageService } from 'primeng/api';
@@ -19,7 +20,7 @@ import { ToastModule } from 'primeng/toast';
     ReactiveFormsModule,
     FloatLabelModule,
     InputTextModule,
-    ToastModule,
+    ToastModule, RouterLink
   ],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss',
@@ -27,12 +28,12 @@ import { ToastModule } from 'primeng/toast';
 })
 export class SigninComponent {
   signinForm = new FormGroup({
-    login: new FormControl('login', {
+    login: new FormControl('', {
       validators: [
         Validators.required,
         Validators.email,
       ]}),
-    password: new FormControl('password', {
+    password: new FormControl('', {
       validators: [
         Validators.required
       ]}),
@@ -66,10 +67,16 @@ export class SigninComponent {
         localStorage.setItem('access_token', response.token);
         this.router.navigate(['/tasks']);
       },
-      error: (err) => {
+      error: (err: HttpErrorResponse) => {
         this.isLoading = false;
-        this.showError('Credenciais inválidas ou erro na conexão');
-        console.error('Erro no login:', err);
+
+        if (err.error.status === 401) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Login ou senha inválidos',
+          });
+        }
       },
       complete: () => (this.isLoading = false),
     });

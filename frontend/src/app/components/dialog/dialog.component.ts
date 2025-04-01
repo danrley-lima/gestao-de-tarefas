@@ -6,6 +6,7 @@ import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { PriorityTranslatePipe } from 'app/shared/priority-translate.pipe';
 import { CommonModule } from '@angular/common';
+import { StatusTranslatePipe } from 'app/shared/status-translate.pipe';
 
 @Component({
   selector: 'app-dialog',

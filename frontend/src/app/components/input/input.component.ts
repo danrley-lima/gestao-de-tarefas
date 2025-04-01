@@ -16,6 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class InputComponent implements ControlValueAccessor {
   @Input() label: string = 'Label';
   @Input() placeholder: string = 'Placeholder';
+  @Input() type: string = 'text';
 
   value: string = '';
   disabled: boolean = false;
@@ -43,7 +44,6 @@ export class InputComponent implements ControlValueAccessor {
     const inputValue = (event.target as HTMLInputElement).value;
     this.value = inputValue;
     this.onChange(inputValue)
-    console.log('Input value changed:', inputValue);
   }
 
   onBlur(): void {

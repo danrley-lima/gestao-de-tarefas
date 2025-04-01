@@ -1,21 +1,20 @@
 <form [formGroup]="taskForm" class="create-task-container">
+  <p-toast></p-toast>
   <div class="filter-grid">
-
     <div>
-    <label for="title">Título</label>
+      <label for="title">Título</label>
       <input
-      class="text-input"
-      variant="filled"
-      pInputText
-      id="title"
-      formControlName="title"
-      autocomplete="off"
-    />
-
+        class="text-input"
+        variant="filled"
+        pInputText
+        id="title"
+        formControlName="title"
+        autocomplete="off"
+      />
     </div>
 
     <div>
-    <label for="description">Descrição da tarefa</label>
+      <label for="description">Descrição da tarefa</label>
       <textarea
         class="text-input"
         pTextarea
@@ -71,7 +70,6 @@
       ]"
       placeholder="Selecione um status"
     />
-
 
     <button class="btn-primary" (click)="onClick()">
       <i class="pi pi-plus"></i>

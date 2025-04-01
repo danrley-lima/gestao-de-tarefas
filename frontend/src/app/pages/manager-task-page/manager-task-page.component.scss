@@ -1,3 +1,15 @@
+:host {
+  --p-inputtext-hover-border-color: var(--color-primary);
+  --p-select-hover-border-color: var(--color-primary);
+  --p-textarea-hover-border-color: var(--color-primary);
+  --p-inputtext-focus-ring-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.171);
+  --p-textarea-focus-ring-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.171);
+  --p-select-focus-ring-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.171);
+  --p-inputtext-focus-border-color: var(--color-primary-light);
+  --p-select-focus-border-color: var(--color-primary-light);
+  --p-textarea-focus-border-color: var(--color-primary-light);
+}
+
 :root {
   margin: 0;
   padding: 0;
@@ -35,12 +47,6 @@ header {
   padding: 1rem 2rem;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
 
 section {
   width: 100%;
@@ -49,10 +55,12 @@ section {
   justify-content: center;
   display: flex;
   flex-direction: column;
+  gap: 2rem;
 
   .filter-container {
     width: 100%;
     height: fit-content;
+    padding: 1rem 2rem 0;
     background-color: #FCF7F5;
     border: #ececec 1px solid;
   }
@@ -80,6 +88,21 @@ section {
       align-items: center;
       width: 100%;
       gap: 2rem;
+    }
+
+    .btn-clear-filter {
+      all: unset;
+      display: flex;
+      font-size: 0.8rem;
+      font-weight: 800;
+      white-space: nowrap;
+      cursor: pointer;
+      text-align: center;
+
+     &:hover {
+        background-color: var(--color-primary-light);
+        color: black;
+      }
     }
 
     .btn-primary {

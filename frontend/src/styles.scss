@@ -8,12 +8,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 :root {
   --font-family: "Nunito", sans-serif;
   --font-size: 16px;
   --line-height: 1.5;
   --color-text: #333;
-  --color-text-placeholder:#495057;
+  --color-text-placeholder: #495057;
   --color-background: #fff;
   --color-primary: #CC0B15;
   --color-secondary: #F4303A;
@@ -28,7 +29,29 @@
 
 }
 
-body, div, main, section, article, aside, nav, header, footer, address, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote {
+body,
+div,
+main,
+section,
+article,
+aside,
+nav,
+header,
+footer,
+address,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
@@ -43,4 +66,13 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+.router-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  gap: 2rem;
 }

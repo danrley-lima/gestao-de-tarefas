@@ -6,7 +6,7 @@
   [style]="{ width: '35rem' }"
 >
   @if (edit) {
-  <app-task-form [edit]="true" [task]="task"></app-task-form>
+  <app-task-form [edit]="true" [task]="task" (closeDialog)="onClose()" ></app-task-form>
   } @else {
   <div class="info-container">
     <app-info-dialog [title]="'Responsável'" [info]="task?.assignee?.name" />

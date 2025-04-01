@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { HeaderComponent } from 'app/components/header/header.component';
 import { TaskFormComponent } from 'app/components/task-form/task-form.component';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -19,6 +20,7 @@ import { TextareaModule } from 'primeng/textarea';
     SelectModule,
     HeaderComponent,
     TaskFormComponent,
+    RouterLink
   ],
   templateUrl: './create-task-page.component.html',
   styleUrl: './create-task-page.component.scss',

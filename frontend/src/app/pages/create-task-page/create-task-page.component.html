@@ -1,17 +1,17 @@
-<header class="header container">
-  <app-header
-  [breadcrumbs]="create.breadcrumbs"
-  [title]="create.title"
-  [subtitle]="create.subtitle"
-  [buttonLabel]="create.buttonText"
-  [subtitleButton]="create.subtitleButton"></app-header>
-</header>
+<div class="router-container">
+  <header class="header container">
+    <app-header [breadcrumbs]="create.breadcrumbs" [title]="create.title" [subtitle]="create.subtitle"
+      [buttonLabel]="create.buttonText" [subtitleButton]="create.subtitleButton"></app-header>
+  </header>
 
-<section>
-
-  <div class="create-task-container">
-    <h1>Criar Tarefa</h1>
-    <app-task-form style="width: 50%;" [edit]="false"></app-task-form>
-  </div>
-
-</section>
+  <section>
+    <a routerLink="/tasks" class="back-button">
+      <i class="pi pi-arrow-left"></i>
+      Voltar
+    </a>
+    <div class="create-task-container">
+      <h1>Criar Tarefa</h1>
+      <app-task-form [edit]="false"></app-task-form>
+    </div>
+  </section>
+</div>

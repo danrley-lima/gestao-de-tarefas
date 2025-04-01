@@ -2,12 +2,28 @@ section {
   display: flex;
   width: 100%;
   justify-content: center;
+  height: 100%;
 
   .signin-container {
     width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+
+  .footer {
+    display: flex;
+    gap: 0.3rem;
+    // font-size: 0.8rem;
+    color: var(--color-text-placeholder);
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
   }
 
   .form-inputs-container {
@@ -104,6 +120,7 @@ img {
     background-color: var(--color-primary-light);
     color: black;
   }
+
   &:active {
     background-color: (--color-primary-light);
   }
