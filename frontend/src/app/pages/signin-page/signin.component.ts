@@ -20,7 +20,8 @@ import { ToastModule } from 'primeng/toast';
     ReactiveFormsModule,
     FloatLabelModule,
     InputTextModule,
-    ToastModule, RouterLink
+    ToastModule,
+    RouterLink,
   ],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss',
@@ -29,16 +30,12 @@ import { ToastModule } from 'primeng/toast';
 export class SigninComponent {
   signinForm = new FormGroup({
     login: new FormControl('', {
-      validators: [
-        Validators.required,
-        Validators.email,
-      ]}),
+      validators: [Validators.required, Validators.email],
+    }),
     password: new FormControl('', {
-      validators: [
-        Validators.required
-      ]}),
-  })
-
+      validators: [Validators.required],
+    }),
+  });
 
   isLoading = false;
 
@@ -65,10 +62,12 @@ export class SigninComponent {
     this.authService.signin(loginRequest).subscribe({
       next: (response) => {
         localStorage.setItem('access_token', response.token);
+        this.authService.setUserLogged(true);
         this.router.navigate(['/tasks']);
       },
       error: (err: HttpErrorResponse) => {
         this.isLoading = false;
+        this.authService.setUserLogged(false);
 
         if (err.error.status === 401) {
           this.messageService.add({

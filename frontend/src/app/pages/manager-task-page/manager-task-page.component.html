@@ -1,4 +1,5 @@
 <div class="router-container">
+  @if (userLogged) {
   <header class="header container">
     <p-toast></p-toast>
     <app-header
@@ -20,7 +21,11 @@
       {{ errorMessage }}
     </div>
 
-    <form [formGroup]="taskForm" class="filter-container" (ngSubmit)="onSubmit()">
+    <form
+      [formGroup]="taskForm"
+      class="filter-container"
+      (ngSubmit)="onSubmit()"
+    >
       <div class="container">
         <div class="filter-grid">
           <app-input
@@ -38,35 +43,39 @@
             <div class="select-grid-2">
               <label for="date">Responsável</label>
               <p-select
-              id="assignee"
-              optionLabel="Responsável"
-              optionValue="value"
-              formControlName="assignee"
-              [options]="assignees"
-              optionLabel="name"
-              placeholder="Selecione um responsável"
-            />
-            <label for="date">Status</label>
-            <p-select
-            id="assignee"
-            optionLabel="Status"
-            optionValue="value"
-            formControlName="status"
-            [options]="[
-            { value: 'todos', name: 'Todos' },
-            { value: 'IN_PROGRESS', name: 'Pendente' },
-            { value: 'COMPLETED', name: 'Concluído' }
-          ]"
-            optionLabel="name"
-            placeholder="Selecione um responsável"
-          />
+                id="assignee"
+                optionLabel="Responsável"
+                optionValue="value"
+                formControlName="assignee"
+                [options]="assignees"
+                optionLabel="name"
+                placeholder="Selecione um responsável"
+              />
+              <label for="date">Status</label>
+              <p-select
+                id="assignee"
+                optionLabel="Status"
+                optionValue="value"
+                formControlName="status"
+                [options]="[
+                  { value: 'todos', name: 'Todos' },
+                  { value: 'IN_PROGRESS', name: 'Pendente' },
+                  { value: 'COMPLETED', name: 'Concluído' }
+                ]"
+                optionLabel="name"
+                placeholder="Selecione um responsável"
+              />
             </div>
-            <button class="btn-clear-filter" type="button" (click)="loadTasks()">
-      Limpar filtros
+            <button
+              class="btn-clear-filter"
+              type="button"
+              (click)="loadTasks()"
+            >
+              Limpar filtros
             </button>
             <button class="btn-primary" type="submit">
               <i class="pi pi-search"></i>
-              {{ loading ? 'Buscando...' : 'Buscar tarefas' }}
+              {{ loading ? "Buscando..." : "Buscar tarefas" }}
             </button>
           </div>
         </div>
@@ -78,4 +87,8 @@
     </div>
   </section>
 
+  } @else {
+
+  <div>Você não possui acesso.</div>
+  }
 </div>
