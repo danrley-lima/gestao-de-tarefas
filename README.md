@@ -9,7 +9,7 @@ Aplicação full stack para gerenciamento de tarefas, desenvolvida como parte do
 - **CRUD de Tarefas**:
   - Criar, editar, excluir e listar tarefas.
   - Filtros por título, responsável e status (Em andamento/Concluída).
-  <!-- - Marcar tarefas como concluídas. -->
+  - Marcar tarefas como concluídas.
 - **Autenticação JWT**: Login seguro com token de acesso.
 - **Extras** (diferenciais):
   - Configuração automatizada do PostgreSQL via Docker Compose.
